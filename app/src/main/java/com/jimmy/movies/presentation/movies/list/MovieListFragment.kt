@@ -1,11 +1,12 @@
 package com.jimmy.movies.presentation.movies.list
 
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.jimmy.movies.base.AppBaseFragment
 import com.jimmy.movies.databinding.FragmentMovieListBinding
+import com.jimmy.movies.util.gone
+import com.jimmy.movies.util.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -47,7 +48,10 @@ class MovieListFragment :
     }
 
     private fun setLoading(loading: Boolean) {
-        binding.progressBar.visibility = if (loading) View.VISIBLE else View.GONE
+        if (loading)
+            binding.progressBar.visible()
+        else
+            binding.progressBar.gone()
     }
 }
 
