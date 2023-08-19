@@ -1,4 +1,7 @@
 package com.jimmy.movies.presentation.movies.list
 
-class MovieListAction {
+import com.jimmy.core_arch.Action
+
+sealed class MovieListAction : Action {
+    object GetMovieList : MovieListAction()
 }
