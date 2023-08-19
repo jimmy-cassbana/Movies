@@ -1,9 +1,9 @@
 package com.jimmy.movies.presentation.movies.list
 
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.jimmy.movies.base.AppBaseFragment
 import com.jimmy.movies.databinding.FragmentMovieListBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,11 +32,12 @@ class MovieListFragment :
         setLoading(viewState.loading)
         when {
             viewState.result != null -> {
-                Toast.makeText(
-                    requireContext(),
-                    viewState.result.results.first().title,
-                    Toast.LENGTH_SHORT
-                ).show()
+                binding.moviesRecycler.adapter = MovieListAdapter(viewState.result.results) {
+                    findNavController().navigate(
+                        MovieListFragmentDirections
+                            .actionMovieListFragmentToMovieDetailsFragment(it)
+                    )
+                }
             }
 
             viewState.error != null -> {
